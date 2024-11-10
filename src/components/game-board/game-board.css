@@ -1,0 +1,16 @@
+.title {
+    font-family: SuperSquadFont, sans-serif;
+}
+
+.game-pending, .game-running {
+    font-size: 30px;
+}
+
+.game-ended {
+    font-size: 35px;
+}
+
+.vs {
+    font-size: 70px;
+    font-family: SuperSquadItalicFont, sans-serif;
+}

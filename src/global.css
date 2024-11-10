@@ -1,0 +1,25 @@
+/**
+ * Tailwind CSS imports
+ * View the full documentation at https://tailwindcss.com
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+    font-family: SuperSquadFont;
+    src: url(/Super_Squad.ttf);
+}
+
+@font-face {
+    font-family: SuperSquadItalicFont;
+    src: url(/Super_Squad_Italic.otf);
+}
+
+main {
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: white;
+    overflow: hidden;
+}

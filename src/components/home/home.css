@@ -1,0 +1,22 @@
+.text {
+    font-size: 105px;
+    line-height: 0.9;
+    text-align: center;
+    font-family: SuperSquadFont, sans-serif;
+    height: fit-content;
+    color: white;
+}
+
+.rayures {
+    background: linear-gradient(90deg, rgb(248, 244, 23) 75%, rgb(69, 78, 91) 35%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-size: 10px 100%;
+}
+
+.orange {
+    font-family: SuperSquadItalicFont, sans-serif;
+    color: orange;
+}
+
