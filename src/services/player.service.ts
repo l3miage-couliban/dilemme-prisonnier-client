@@ -7,7 +7,6 @@ export class PlayerService {
             const response = await axios.patch(`${import.meta.env.PUBLIC_SERVER_URL}/joueurs/${data.playerId}/abandonner`, {
                 strategie: data.strategy
             });
-            console.log(response.data);
             
             return ({
                 success: true,

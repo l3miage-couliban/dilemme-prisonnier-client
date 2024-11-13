@@ -1,4 +1,4 @@
-import { $, component$, createContextId, Signal, useComputed$, useContextProvider, useSignal, useTask$, useVisibleTask$} from "@builder.io/qwik";
+import { $, component$, createContextId, Signal, useContextProvider, useSignal, useTask$, useVisibleTask$} from "@builder.io/qwik";
 import { routeAction$, routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
 import GameBoard from "~/components/game-board/game-board";
 import { GameService } from "~/services/game.service";
@@ -6,6 +6,7 @@ import { PlayerService } from "~/services/player.service";
 import { RoundService } from "~/services/round.service";
 import { Game } from "~/types/game.type";
 import { PlayShotRequest } from "~/types/play-shot-request.type";
+import { Player } from "~/types/player.type";
 import { QuitGameRequest } from "~/types/quit-game-request.type";
 import { RoundDetailsWithShots } from "~/types/round-details-with-shots.type";
 
@@ -33,9 +34,17 @@ export const usePlayShot = routeAction$(async (data) => {
   };
 });
 
-export const useQuitGame = routeAction$(async (data) => {
-  console.log("action: ", data);
+export const useGetGameDetails = routeAction$(async (data) => {
+  const gameDetails = await gameService.getGameDetails(data.gameId as number);
+  const roundsDetails = await Promise.all(gameDetails.parties.map(p => roundService.getRoundDetails(p.id))) as RoundDetailsWithShots[];
   
+  return {
+    gameDetails,
+    roundsDetails
+  };
+});
+
+export const useQuitGame = routeAction$(async (data) => {
   const response = await playerService.quitGame(data);
   return {
     success: response.success,
@@ -47,33 +56,62 @@ export const GameDetailsContextId = createContextId<Signal<Game>>('gameDetails')
 export const roundsDetailsContextId = createContextId<Signal<RoundDetailsWithShots[]>>('endedRounds');
 export const playShotContextId = createContextId<Signal<PlayShotRequest>>('playShot');
 export const quitGameContextId = createContextId<Signal<QuitGameRequest>>('quitGame');
+export const currentPlayerContextId = createContextId<Signal<Player>>('currentPlayer');
 
 export default component$(() => {
   const gameDetails = useSignal(useGameDetails().value.gameDetails);
   const roundsDetails = useSignal(useGameDetails().value.roundsDetails);
+  const gameId = gameDetails.value.id;
+
   const playShotRequest = useSignal<PlayShotRequest>({playerId: undefined, shot: undefined});
   const quitGameRequest = useSignal<QuitGameRequest>({playerId: undefined, strategy: undefined});
+  const currentPlayer = useSignal<Player>()
 
   useContextProvider(GameDetailsContextId, gameDetails);
   useContextProvider(roundsDetailsContextId, roundsDetails);
   useContextProvider(playShotContextId, playShotRequest);
   useContextProvider(quitGameContextId, quitGameRequest);
+  useContextProvider(currentPlayerContextId, currentPlayer);
 
   const usePlayShotAction = usePlayShot();
   const useQuitGameAction = useQuitGame();
+  const useGetGameDetailsAction = useGetGameDetails();
 
   useTask$(({track}) => {
     const playShotRequestTracked = track(playShotRequest);
     const quitGameRequestTracked = track(quitGameRequest);
     
-    if (playShotRequestTracked.playerId != undefined) {
+    if (playShotRequestTracked.playerId != undefined) {      
       usePlayShotAction.submit({gameId: gameDetails.value.id, request: playShotRequestTracked}).then();
+      playShotRequest.value = {playerId: undefined, shot: undefined};
     }
 
     if (quitGameRequestTracked.playerId != undefined && quitGameRequestTracked.strategy != undefined) {      
       useQuitGameAction.submit({...quitGameRequestTracked}).then();
+      quitGameRequest.value = {playerId: undefined, strategy: undefined};
     }
   });
+
+  useVisibleTask$(({track}) => {
+    const currentPlayerTracked = track(currentPlayer);
+  
+    if (currentPlayerTracked != undefined) {
+      const eventSource = new EventSource(`${import.meta.env.PUBLIC_SERVER_URL}/jeux/${gameId}/joueurs/${currentPlayer.value?.id}/event`);
+  
+      eventSource.addEventListener("Id Jeu", (event) => {
+        console.log("CONNEXION REUSSIE JEU: "+event.data);
+      });
+  
+      eventSource.addEventListener("message", (event) => {
+        console.log("Message reçu: "+event.data);
+        
+        useGetGameDetailsAction.submit(({gameId: gameId})).then(response => {
+          gameDetails.value = response.value.gameDetails;
+          roundsDetails.value = response.value.roundsDetails;
+        });
+      });
+    }
+  })
 
   return (
       <div>

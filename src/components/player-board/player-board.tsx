@@ -2,7 +2,7 @@ import { $, component$, Signal, useContext, useSignal, } from "@builder.io/qwik"
 import { Player } from "~/types/player.type";
 import ImgJack from '/src/assets/jack.png?jsx';
 import ImgWilliam from '/src/assets/william.png?jsx';
-import { playShotContextId, quitGameContextId } from "~/routes/game-panel";
+import { playShotContextId } from "~/routes/game-panel";
 import StrategiesSelect from "../strategies-select/strategies-select";
 import { ShotDetails } from "~/types/shot-details.type";
 
@@ -34,17 +34,17 @@ const PlayerBoard = component$<PlayerBoardProps>((props) => {
             {props.order === 1 && <ImgJack class="block w-32 h-32 rounded-full bg-white" />}
             {props.order === 2 && <ImgWilliam class="block w-32 h-32 rounded-full bg-white" />}
 
-            {props.gameState != "TERMINE" && canDisplayButtons && !props.shot?.value && !props.player.value?.abandon &&
-                <div class="mt-4">
-                    <button class="mx-2 border rounded bg-slate-100 px-2 py-2 text-black" onClick$={() => playShot("COOPERER")}>Cooperer</button>
-                    <button class="mx-2 border rounded bg-slate-100 px-2 py-2 text-black" onClick$={() => playShot("TRAHIR")}>Trahir</button>
-                    <button class="mx-2 border rounded bg-slate-100 px-2 py-2 text-black" onClick$={() => isSelectOfStrategiesDisplayed.value = true}>Abandonner</button>
+            {props.gameState == "EN_COURS" && canDisplayButtons && !props.shot?.value && !props.player.value?.abandon &&
+                <div class="mt-4 text-sm">
+                    <button class="mx-1 border rounded bg-slate-100 px-1 py-2 text-black" onClick$={() => playShot("COOPERER")}>Cooperer</button>
+                    <button class="mx-1 border rounded bg-slate-100 px-1 py-2 text-black" onClick$={() => playShot("TRAHIR")}>Trahir</button>
+                    <button class="mx-1 border rounded bg-slate-100 px-1 py-2 text-black" onClick$={() => isSelectOfStrategiesDisplayed.value = true}>Abandonner</button>
                     {isSelectOfStrategiesDisplayed.value && <StrategiesSelect isSelectOfStrategiesDisplayed={isSelectOfStrategiesDisplayed} player={props.player} /> }
                 </div>
             }
 
             {props.shot?.value &&
-                <div class="mt-6 text-xl font-bold">Déjà joué !!!</div>
+                <div class="mt-6 text-xl font-bold"> Déjà joué !!!</div>
             }
 
             {props.player.value?.abandon &&

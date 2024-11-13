@@ -1,4 +1,4 @@
-import { component$, createContextId, Signal, useContextProvider, useSignal, useTask$ } from "@builder.io/qwik";
+import { component$, createContextId, Signal, useContextProvider, useSignal, useTask$, useVisibleTask$ } from "@builder.io/qwik";
 import { routeAction$, useNavigate, type DocumentHead } from "@builder.io/qwik-city";
 import { isBrowser } from "@builder.io/qwik/build";
 import Home from "~/components/home/home";
