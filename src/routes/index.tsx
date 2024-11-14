@@ -34,13 +34,16 @@ export const useJoinGame = routeAction$(async (data) => {
 
 export const CreateGameContextId = createContextId<Signal<CreateGame>>('createGame');
 export const JoinGameContextId = createContextId<Signal<JoinGame>>('joinGame');
+export const prograssBarStateId = createContextId<Signal<boolean | null>>('prograssBarState');
 
 export default component$(() => {
   const createGame = useSignal({ playerNickname: "", partiesNumber: 0 });
   const joinGame = useSignal({ playerNickname: "", gameCode: 0 });
+  const prograssBarState = useSignal(false);
 
   useContextProvider(CreateGameContextId, createGame);
   useContextProvider(JoinGameContextId, joinGame);
+  useContextProvider(prograssBarStateId, prograssBarState);
 
   const nav = useNavigate();
 
@@ -56,7 +59,8 @@ export default component$(() => {
           if (isBrowser) {
             localStorage.setItem("joueur1", JSON.stringify(response.value.data.joueurCree));
           }
-          nav('/game-panel?gameCode=' + response.value.data.id)
+          nav('/game-panel?gameCode=' + response.value.data.id);
+          prograssBarState.value = false;
         });
     }
   });
@@ -70,7 +74,8 @@ export default component$(() => {
           if (isBrowser) {
             localStorage.setItem("joueur2", JSON.stringify(response.value.data.joueurCree));
           }
-          nav('/game-panel?gameCode=' + response.value.data.id)
+          nav('/game-panel?gameCode=' + response.value.data.id);
+          prograssBarState.value = false;
         });
     }
   });

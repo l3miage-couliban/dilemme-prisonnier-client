@@ -19,7 +19,7 @@ const RoundResult = component$<RoundResultProps>((props) => {
                 <span class="font-semibold">{shotPlayer1?.coup}</span>
                 <span>{shotPlayer1?.score}</span>
             </div>
-            <div class="font-bold">Partie {round.ordre}</div>
+            <div class="font-bold text-base text-orange-400">Partie {round.ordre}</div>
             <div class="flex flex-row justify-around w-2/5">
                 <span>{shotPlayer2?.score}</span>
                 <span class="font-semibold">{shotPlayer2?.coup}</span>

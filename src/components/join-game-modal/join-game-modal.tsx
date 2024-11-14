@@ -1,16 +1,18 @@
 import { $, component$, useContext, useSignal } from "@builder.io/qwik";
 import { Modal } from '@qwik-ui/headless';
 import Input from "../input/input";
-import { JoinGameContextId } from "~/routes";
+import { JoinGameContextId, prograssBarStateId } from "~/routes";
 
 export default component$(() => {
     const playerNickname = useSignal("");
     const gameCode = useSignal(0);
 
     const joinGame = useContext(JoinGameContextId);
+    const prograssBarState = useContext(prograssBarStateId);
 
     const submit = $(() => {
         joinGame.value = {playerNickname: playerNickname.value, gameCode: gameCode.value};
+        prograssBarState.value = true;
         playerNickname.value = "";
         gameCode.value = 0;
     });

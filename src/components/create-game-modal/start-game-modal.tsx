@@ -1,7 +1,7 @@
 import { $, component$, useContext, useSignal } from "@builder.io/qwik";
 import { Modal } from '@qwik-ui/headless';
 import Input from "../input/input";
-import { CreateGameContextId } from "~/routes";
+import { CreateGameContextId, prograssBarStateId } from "~/routes";
 
 
 export default component$(() => {
@@ -9,11 +9,13 @@ export default component$(() => {
     const partiesNumber = useSignal(0);
 
     const createGameSignal = useContext(CreateGameContextId);
+    const prograssBarState = useContext(prograssBarStateId);
 
     const submit = $(() => {
         createGameSignal.value = { playerNickname: playerNickname.value, partiesNumber: partiesNumber.value };
         playerNickname.value = "";
         partiesNumber.value = 0;
+        prograssBarState.value = true;
     });
 
     const clean = $(() => {
