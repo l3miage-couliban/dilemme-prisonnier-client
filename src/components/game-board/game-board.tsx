@@ -1,6 +1,6 @@
-import { $, component$, useComputed$, useContext, useSignal, useStylesScoped$, useTask$, useVisibleTask$ } from "@builder.io/qwik";
+import { $, component$, useComputed$, useContext, useSignal, useStylesScoped$, useVisibleTask$ } from "@builder.io/qwik";
 import styles from "./game-board.css?inline";
-import { Player } from "~/types/player.type";
+import type { Player } from "~/types/player.type";
 import PlayerBoard from "../player-board/player-board";
 import { roundsDetailsContextId, GameDetailsContextId, currentPlayerContextId } from "~/routes/game-panel";
 import RoundResult from "../round-result/round-result";
@@ -28,8 +28,8 @@ export default component$(() => {
     const isPlayer1 = useComputed$(() => localPlayer1.value != null && true);
     const isPlayer2 = useComputed$(() => localPlayer2.value != null && true);
 
-    const player1 = useComputed$(() => players.value.find(p => p?.id === localPlayer1?.value?.id) ?? players.value.find(p => p?.id !== localPlayer2?.value?.id));
-    const player2 = useComputed$(() => players.value.find(p => p?.id === localPlayer2?.value?.id) ?? players.value.find(p => p?.id !== localPlayer1?.value?.id));
+    const player1 = useComputed$(() => players.value.find(p => p?.id === localPlayer1.value?.id) ?? players.value.find(p => p?.id !== localPlayer2.value?.id));
+    const player2 = useComputed$(() => players.value.find(p => p?.id === localPlayer2.value?.id) ?? players.value.find(p => p?.id !== localPlayer1.value?.id));
 
     const shotPlayer1 = useComputed$(() => currendRound.value?.partiesJoueurs.find(shot => shot.joueur?.id === player1.value?.id));
     const shotPlayer2 = useComputed$(() => currendRound.value?.partiesJoueurs.find(shot => shot.joueur?.id === player2.value?.id));
@@ -38,12 +38,12 @@ export default component$(() => {
         round => round.partiesJoueurs.find(
             shot => shot.joueur?.id === player!.id
         )
-    ).reduce((acc, shot) => acc + shot?.score!, 0));
+    ).reduce((acc, shot) => acc + shot!.score, 0));
 
     const totalScorePlayer1 = useComputed$(() => countScorePlayer(player1.value));
     const totalScorePlayer2 = useComputed$(() => countScorePlayer(player2.value));
 
-    const winnerName = useComputed$(() => totalScorePlayer1.value > totalScorePlayer2.value ? player1.value?.nom! : player2.value?.nom!);
+    const winnerName = useComputed$(() => totalScorePlayer1.value > totalScorePlayer2.value ? player1.value!.nom : player2.value!.nom);
     const areScoresEquals = useComputed$(() => totalScorePlayer1.value === totalScorePlayer2.value);
 
     useVisibleTask$(() => {

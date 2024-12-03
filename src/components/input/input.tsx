@@ -16,7 +16,7 @@ export default component$<InputProps>((props) => {
                 type={props.type || "text"}
                 placeholder="Saisir ici ..."
                 class="border-2 border-gray-400 w-full p-2 focus:outline-none focus:border-indigo-500"
-                value={props.value?.value}
+                value={props.value.value}
                 onInput$={(_, el) => (props.value.value = el.value)} />
         </div>
     );

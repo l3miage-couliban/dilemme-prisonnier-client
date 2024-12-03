@@ -1,5 +1,5 @@
-import { Player } from "./player.type";
-import { Round } from "./round.type";
+import type { Player } from "./player.type";
+import type { Round } from "./round.type";
 
 export type ShotDetails = {
     coup: string;

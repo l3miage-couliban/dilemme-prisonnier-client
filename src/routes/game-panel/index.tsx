@@ -1,14 +1,15 @@
-import { $, component$, createContextId, Signal, useContextProvider, useSignal, useTask$, useVisibleTask$} from "@builder.io/qwik";
+import { component$, createContextId, useContextProvider, useSignal, useTask$, useVisibleTask$} from "@builder.io/qwik";
 import { routeAction$, routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
+import type { Signal } from "@builder.io/qwik";
 import GameBoard from "~/components/game-board/game-board";
 import { GameService } from "~/services/game.service";
 import { PlayerService } from "~/services/player.service";
 import { RoundService } from "~/services/round.service";
-import { Game } from "~/types/game.type";
-import { PlayShotRequest } from "~/types/play-shot-request.type";
-import { Player } from "~/types/player.type";
-import { QuitGameRequest } from "~/types/quit-game-request.type";
-import { RoundDetailsWithShots } from "~/types/round-details-with-shots.type";
+import type { Game } from "~/types/game.type";
+import type { PlayShotRequest } from "~/types/play-shot-request.type";
+import type { Player } from "~/types/player.type";
+import type { QuitGameRequest } from "~/types/quit-game-request.type";
+import type { RoundDetailsWithShots } from "~/types/round-details-with-shots.type";
 
 const gameService = new GameService();
 const roundService = new RoundService();

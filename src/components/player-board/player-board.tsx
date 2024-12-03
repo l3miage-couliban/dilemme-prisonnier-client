@@ -1,10 +1,11 @@
-import { $, component$, Signal, useContext, useSignal, } from "@builder.io/qwik";
-import { Player } from "~/types/player.type";
+import { $, component$, useContext, useSignal, } from "@builder.io/qwik";
+import type { Signal } from "@builder.io/qwik";
+import type { Player } from "~/types/player.type";
 import ImgJack from '/src/assets/jack.png?jsx';
 import ImgWilliam from '/src/assets/william.png?jsx';
 import { playShotContextId } from "~/routes/game-panel";
 import StrategiesSelect from "../strategies-select/strategies-select";
-import { ShotDetails } from "~/types/shot-details.type";
+import type { ShotDetails } from "~/types/shot-details.type";
 
 
 interface PlayerBoardProps {

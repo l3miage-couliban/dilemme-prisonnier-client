@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { CreateGameResponse } from '~/types/create-game-response.type';
-import { CreateGame } from '~/types/create-game.type';
-import { Game } from '~/types/game.type';
-import { JoinGameResponse } from '~/types/join-game-response.type';
-import { JoinGame } from '~/types/join-game.type';
+import type { CreateGameResponse } from '~/types/create-game-response.type';
+import type { CreateGame } from '~/types/create-game.type';
+import type { Game } from '~/types/game.type';
+import type { JoinGameResponse } from '~/types/join-game-response.type';
+import type { JoinGame } from '~/types/join-game.type';
 
 export class GameService {
     async createGame(data: CreateGame): Promise<CreateGameResponse> {

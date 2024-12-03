@@ -1,9 +1,9 @@
-import { $, component$, Signal, useContext, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import { $, component$, useContext, useSignal } from "@builder.io/qwik";
+import type { Signal } from "@builder.io/qwik";
 import { CheckIcon } from "../icons/check-icon";
 import { CloseIcon } from "../icons/close-icon";
-import { QuitGameRequest } from "~/types/quit-game-request.type";
 import { quitGameContextId } from "~/routes/game-panel";
-import { Player } from "~/types/player.type";
+import type { Player } from "~/types/player.type";
 
 export interface StrategiesSelectProps {
     isSelectOfStrategiesDisplayed: Signal<boolean>;

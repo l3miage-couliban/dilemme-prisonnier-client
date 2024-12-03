@@ -1,4 +1,4 @@
-import { QuitGameRequest } from "~/types/quit-game-request.type";
+import type { QuitGameRequest } from "~/types/quit-game-request.type";
 import axios from "axios";
 
 export class PlayerService {

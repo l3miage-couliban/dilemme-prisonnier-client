@@ -1,4 +1,4 @@
-import { QRLEventHandlerMulti } from "@builder.io/qwik";
+import type { QRLEventHandlerMulti } from "@builder.io/qwik";
 
 export interface IconProps {
     class?: string;

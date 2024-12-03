@@ -1,10 +1,11 @@
-import { component$, createContextId, Signal, useContextProvider, useSignal, useTask$, useVisibleTask$ } from "@builder.io/qwik";
+import { component$, createContextId, useContextProvider, useSignal, useTask$ } from "@builder.io/qwik";
 import { routeAction$, useNavigate, type DocumentHead } from "@builder.io/qwik-city";
+import type { Signal } from "@builder.io/qwik";
 import { isBrowser } from "@builder.io/qwik/build";
 import Home from "~/components/home/home";
 import { GameService } from "~/services/game.service";
-import { CreateGame } from "~/types/create-game.type";
-import { JoinGame } from "~/types/join-game.type";
+import type { CreateGame } from "~/types/create-game.type";
+import type { JoinGame } from "~/types/join-game.type";
 
 const gameService = new GameService();
 

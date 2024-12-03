@@ -1,6 +1,6 @@
 import axios from "axios";
-import { PlayShotRequest } from "~/types/play-shot-request.type";
-import { RoundDetailsWithShots } from "~/types/round-details-with-shots.type";
+import type { PlayShotRequest } from "~/types/play-shot-request.type";
+import type { RoundDetailsWithShots } from "~/types/round-details-with-shots.type";
 
 export class RoundService {
     async getRoundDetails(roundId: String): Promise<RoundDetailsWithShots> {

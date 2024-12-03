@@ -1,6 +1,6 @@
-import { component$, Signal } from "@builder.io/qwik";
-import { Player } from "~/types/player.type";
-import { RoundDetailsWithShots } from "~/types/round-details-with-shots.type";
+import { component$ } from "@builder.io/qwik";
+import type { Player } from "~/types/player.type";
+import type { RoundDetailsWithShots } from "~/types/round-details-with-shots.type";
 
 interface RoundResultProps {
     round: RoundDetailsWithShots;

@@ -1,4 +1,4 @@
-import { Player } from "./player.type"
+import type { Player } from "./player.type"
 
 export type CreateGameResponse = {
     id: number,
