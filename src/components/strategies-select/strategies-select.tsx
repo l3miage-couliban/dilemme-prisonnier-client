@@ -4,14 +4,12 @@ import { CheckIcon } from "../icons/check-icon";
 import { CloseIcon } from "../icons/close-icon";
 import { quitGameContextId } from "~/routes/game-panel";
 import type { Player } from "~/types/player.type";
+import { strategies } from "~/data/strategies";
 
 export interface StrategiesSelectProps {
     isSelectOfStrategiesDisplayed: Signal<boolean>;
     player: Signal<Player>;
 }
-
-export const strategies = ["DONNANT_DONNANT", "TOUJOURS_COOPERER", "TOUJOURS_TRAHIR", "RANCUNIER", "ALEATOIRE"];
-
 
 const StrategiesSelect = component$<StrategiesSelectProps>((props) => {
 
