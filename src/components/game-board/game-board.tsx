@@ -19,7 +19,6 @@ export default component$(() => {
         .sort((r1, r2) => r1.ordre - r2.ordre)
     );
 
-
     const players = useComputed$(() => gameDetails.value.joueurs);
 
     const localPlayer1 = useSignal<Player>();
@@ -38,12 +37,12 @@ export default component$(() => {
         round => round.partiesJoueurs.find(
             shot => shot.joueur?.id === player!.id
         )
-    ).reduce((acc, shot) => acc + shot!.score, 0));
+    ).reduce((acc, shot) => acc + (shot?.score ?? 0), 0));
 
     const totalScorePlayer1 = useComputed$(() => countScorePlayer(player1.value));
     const totalScorePlayer2 = useComputed$(() => countScorePlayer(player2.value));
 
-    const winnerName = useComputed$(() => totalScorePlayer1.value > totalScorePlayer2.value ? player1.value!.nom : player2.value!.nom);
+    const winnerName = useComputed$(() => totalScorePlayer1.value > totalScorePlayer2.value ? (player1.value?.nom) : (player2.value?.nom));
     const areScoresEquals = useComputed$(() => totalScorePlayer1.value === totalScorePlayer2.value);
 
     useVisibleTask$(() => {
