@@ -58,6 +58,7 @@ export default component$(() => {
       createGameAction.submit({ ...createGameTracked })
         .then(response => {
           if (isBrowser) {
+            localStorage.clear();
             localStorage.setItem("joueur1", JSON.stringify(response.value.data.joueurCree));
           }
           nav('/game-panel?gameCode=' + response.value.data.id);
@@ -73,6 +74,7 @@ export default component$(() => {
       joinGameAction.submit({ ...joinGameTracked })
         .then(response => {
           if (isBrowser) {
+            localStorage.clear();
             localStorage.setItem("joueur2", JSON.stringify(response.value.data.joueurCree));
           }
           nav('/game-panel?gameCode=' + response.value.data.id);

@@ -29,7 +29,7 @@ const StrategiesSelect = component$<StrategiesSelectProps>((props) => {
                     <option disabled>Choisir une stratégie</option>
                     {
                         strategies.map((strategy, index) =>
-                            <option key={index} value={strategy} class="capitalize">{strategy.replace("_", " ").toLowerCase()}</option>)
+                            <option key={index} value={strategy} class="capitalize">{strategy.replaceAll("_", " ").toLowerCase()}</option>)
                     }
                 </select>
             </div>

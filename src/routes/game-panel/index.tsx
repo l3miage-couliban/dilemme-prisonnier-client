@@ -58,6 +58,7 @@ export const roundsDetailsContextId = createContextId<Signal<RoundDetailsWithSho
 export const playShotContextId = createContextId<Signal<PlayShotRequest>>('playShot');
 export const quitGameContextId = createContextId<Signal<QuitGameRequest>>('quitGame');
 export const currentPlayerContextId = createContextId<Signal<Player>>('currentPlayer');
+export const progressShotContextId = createContextId<Signal<boolean>>('progressShot');
 
 export default component$(() => {
   const gameDetails = useSignal(useGameDetails().value.gameDetails);
@@ -66,13 +67,16 @@ export default component$(() => {
 
   const playShotRequest = useSignal<PlayShotRequest>({playerId: undefined, shot: undefined});
   const quitGameRequest = useSignal<QuitGameRequest>({playerId: undefined, strategy: undefined});
-  const currentPlayer = useSignal<Player>()
+  const currentPlayer = useSignal<Player>();
+  const progressShot = useSignal(false);
 
   useContextProvider(GameDetailsContextId, gameDetails);
   useContextProvider(roundsDetailsContextId, roundsDetails);
   useContextProvider(playShotContextId, playShotRequest);
   useContextProvider(quitGameContextId, quitGameRequest);
   useContextProvider(currentPlayerContextId, currentPlayer);
+  useContextProvider(progressShotContextId, progressShot);
+
 
   const usePlayShotAction = usePlayShot();
   const useQuitGameAction = useQuitGame();
@@ -105,7 +109,7 @@ export default component$(() => {
   
       eventSource.addEventListener("message", (event) => {
         console.log("Message reçu: "+event.data);
-        
+        progressShot.value = false;
         useGetGameDetailsAction.submit(({gameId: gameId})).then(response => {
           gameDetails.value = response.value.gameDetails;
           roundsDetails.value = response.value.roundsDetails;

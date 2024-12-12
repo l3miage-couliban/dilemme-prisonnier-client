@@ -11,8 +11,8 @@ export default component$(() => {
     const prograssBarState = useContext(prograssBarStateId);
 
     const submit = $(() => {
-        joinGame.value = {playerNickname: playerNickname.value, gameCode: gameCode.value};
         prograssBarState.value = true;
+        joinGame.value = {playerNickname: playerNickname.value, gameCode: gameCode.value};
         playerNickname.value = "";
         gameCode.value = 0;
     });
@@ -24,7 +24,7 @@ export default component$(() => {
 
     return (
         <Modal.Root>
-            <Modal.Trigger class="modal-trigger mx-3 border rounded bg-slate-100 px-4 py-2 shadow-xl">Joindre un jeu</Modal.Trigger>
+            <Modal.Trigger class="modal-trigger mx-3 border rounded bg-slate-100 px-4 py-2 shadow-xl w-60 text-lg font-bold">Joindre un jeu</Modal.Trigger>
             <Modal.Panel class="modal-panel w-96 rounded-md p-6 font-sans antialiased">
                 <Modal.Title class="text-3xl font-extrabold mb-4">Joindre un jeu</Modal.Title>
                 <Input label="Pseudo du joueur" value={playerNickname} />
