@@ -101,7 +101,7 @@ export default component$(() => {
     const currentPlayerTracked = track(currentPlayer);
   
     if (currentPlayerTracked != undefined) {
-      const eventSource = new EventSource(`${import.meta.env.PUBLIC_SERVER_URL}/jeux/${gameId}/joueurs/${currentPlayer.value?.id}/event`);
+      const eventSource = new EventSource(`${import.meta.env.PUBLIC_SERVER_URL}/jeux/${gameId.value}/joueurs/${currentPlayer.value?.id}/event`);
   
       eventSource.addEventListener("Id Jeu", (event) => {
         console.log("CONNEXION REUSSIE JEU: "+event.data);
@@ -110,7 +110,7 @@ export default component$(() => {
       eventSource.addEventListener("message", (event) => {
         console.log("Message reçu: "+event.data);
         progressShot.value = false;
-        useGetGameDetailsAction.submit(({gameId: gameId})).then(response => {
+        useGetGameDetailsAction.submit(({gameId: gameId.value})).then(response => {
           gameDetails.value = response.value.gameDetails;
           roundsDetails.value = response.value.roundsDetails;
         });
