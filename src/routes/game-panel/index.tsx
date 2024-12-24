@@ -1,4 +1,4 @@
-import { component$, createContextId, useContextProvider, useSignal, useTask$, useVisibleTask$} from "@builder.io/qwik";
+import { component$, createContextId, useContextProvider, useSignal, useComputed$, useTask$, useVisibleTask$} from "@builder.io/qwik";
 import { routeAction$, routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
 import type { Signal } from "@builder.io/qwik";
 import GameBoard from "~/components/game-board/game-board";
@@ -63,7 +63,7 @@ export const progressShotContextId = createContextId<Signal<boolean>>('progressS
 export default component$(() => {
   const gameDetails = useSignal(useGameDetails().value.gameDetails);
   const roundsDetails = useSignal(useGameDetails().value.roundsDetails);
-  const gameId = gameDetails.value.id;
+  const gameId = useComputed$(() => gameDetails.value.id);
 
   const playShotRequest = useSignal<PlayShotRequest>({playerId: undefined, shot: undefined});
   const quitGameRequest = useSignal<QuitGameRequest>({playerId: undefined, strategy: undefined});
