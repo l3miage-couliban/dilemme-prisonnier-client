@@ -107,7 +107,7 @@ export default component$(() => {
         console.log("CONNEXION REUSSIE JEU: "+event.data);
       });
   
-      eventSource.addEventListener("message", (event) => {
+      eventSource.addEventListener("message", () => {
         progressShot.value = false;
         useGetGameDetailsAction.submit(({gameId: gameId.value})).then(response => {
           gameDetails.value = response.value.gameDetails;
