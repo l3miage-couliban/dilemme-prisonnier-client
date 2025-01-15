@@ -12,7 +12,7 @@ export default component$(() => {
     const roundsDetails = useContext(roundsDetailsContextId);
     const currentPlayer = useContext(currentPlayerContextId);
 
-    const totalRoundNumber = gameDetails.value.nombreParties;
+    const totalRoundNumber = useComputed$(() => gameDetails.value.nombreParties);
     const currendRound = useComputed$(() => roundsDetails.value.find(round => round.statut === "EN_COURS"));
     const endedRounds = useComputed$(() => roundsDetails.value
         .filter(round => round.statut === "TERMINE")

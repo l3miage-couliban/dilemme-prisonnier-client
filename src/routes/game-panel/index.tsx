@@ -108,7 +108,6 @@ export default component$(() => {
       });
   
       eventSource.addEventListener("message", (event) => {
-        console.log("Message reçu: "+event.data);
         progressShot.value = false;
         useGetGameDetailsAction.submit(({gameId: gameId.value})).then(response => {
           gameDetails.value = response.value.gameDetails;
